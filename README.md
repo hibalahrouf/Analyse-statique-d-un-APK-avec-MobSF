@@ -94,18 +94,6 @@ Commande utilisée :
 mkdir -p ~/apk_analysis/$(date +%Y-%m-%d)
 cd ~/apk_analysis/$(date +%Y-%m-%d)
 
-Capture :
-
-![VM démarrée](images/01_vm_started.png)
-
----
-
-## Vérification de l’environnement
-
-Le terminal est ouvert dans la VM Kali.
-
-Capture :
-
 ![Dossier de travail](images/02_working_directory.png)
 
 ---
@@ -114,7 +102,7 @@ Capture :
 
 L’APK à analyser est déplacé dans le dossier de travail.
 
-Capture :
+
 
 ![APK dans le dossier](images/03_apk_in_directory.png)
 
@@ -128,7 +116,7 @@ Commande :
 sha256sum app-debug.apk > apk_hash.txt
 cat apk_hash.txt
 
-Capture :
+
 
 ![SHA256](images/04_sha256_hash.png)
 
@@ -156,7 +144,6 @@ echo "VM : Kali Linux" >> analyse_info.txt
 echo "APK analysé : app-debug.apk" >> analyse_info.txt
 cat apk_hash.txt >> analyse_info.txt
 
-Capture :
 
 ![Fichier traçabilité](images/06_traceability_file.png)
 
@@ -176,9 +163,7 @@ MobSF démarre un serveur web local.
 URL d'accès :
 http://127.0.0.1:8000
 
-Capture :
-
-![Serveur MobSF](images/07_mobsf_server_started.png)
+![Serveur MobSF](images/13_mobsf_runserver_after_reset.png)
 
 ---
 
@@ -188,7 +173,7 @@ L’interface web permet d'importer un APK et de lancer l’analyse.
 
 Capture :
 
-![Interface MobSF](images/08_mobsf_homepage.png)
+![Interface MobSF](images/09_mobsf_homepage.png)
 
 ---
 
@@ -286,8 +271,6 @@ InitializationProvider | Non
 
 ## Aperçu du manifeste
 
-Capture :
-
 ![Manifest](images/18_android_manifest_overview.png)
 
 ---
@@ -304,13 +287,14 @@ protectionLevel="signature"
 
 Cela signifie que seules les applications signées avec la même clé peuvent l’utiliser.
 
-Capture :
 
 ![Permissions](images/21_permissions_overview.png)
 
 # 9.1 Analyse de la configuration réseau 
+![Permissions](images/4.png)
 
 ### Configuration réseau
+
 
 - android:usesCleartextTraffic : non défini
 - networkSecurityConfig : absent
@@ -324,6 +308,7 @@ Sur Android moderne (API ≥ 28), cela signifie que seul le trafic HTTPS est aut
 ---
 
 ### Analyse des endpoints
+![Permissions](images/2.png)
 
 Résultat MobSF :
 
@@ -331,9 +316,7 @@ Résultat MobSF :
 - Aucun endpoint
 - Aucun email
 
-Capture :
 
-![URLs](images/NEW_urls_analysis.png)
 
 ---
 
@@ -359,6 +342,9 @@ Les sections suivantes n’ont signalé aucun problème :
 - Shared Library Analysis
 - File Analysis
 - Firebase Analysis
+- 
+- ![Permissions](images/6.png)
+- 
 # 10.1 Surface d’attaque 
 
 Les points d’entrée potentiels identifiés sont :
@@ -368,14 +354,12 @@ Les points d’entrée potentiels identifiés sont :
 - Mode debug activé
 - Sauvegarde des données activée
 
-Capture :
 
-![Attack Surface](images/NEW_attack_surface.png)
-
----
 ---
 
 # 11. Task 7 — Corrélation avec OWASP MASVS
+
+![Permissions](images/3.png)
 
 Les vulnérabilités identifiées peuvent être associées au standard **OWASP MASVS**.
 
@@ -565,10 +549,6 @@ OWASP MASVS
 ## Endpoints
 
 Aucun endpoint ou URL détecté
-
-Capture :
-
-![Annexes](images/NEW_annexes.png)
 # Fichiers de traçabilité générés
 
 Les fichiers suivants ont été créés pour structurer l’analyse :
