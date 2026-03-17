@@ -271,7 +271,7 @@ InitializationProvider | Non
 
 ## Aperçu du manifeste
 
-![Manifest](images/18_android_manifest_overview.png)
+![Manifest](images/18_android_manifest.png)
 
 ---
 
