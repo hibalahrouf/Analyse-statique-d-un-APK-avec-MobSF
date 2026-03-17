@@ -29,6 +29,20 @@ Les objectifs de ce laboratoire sont :
 
 ---
 
+# 2.1 Résumé exécutif 
+
+L’analyse statique de l’application PizzaRecipes révèle un niveau de risque **moyen**.
+
+Les principales vulnérabilités identifiées concernent :
+- le mode debug activé
+- l’utilisation d’un certificat de debug
+- l’activation de la sauvegarde des données
+- la présence de composants exportés
+
+Aucune vulnérabilité critique liée au code ou aux communications réseau n’a été détectée.
+
+---
+
 # 3. Règles de sécurité et périmètre
 
 Ce laboratoire s'inscrit dans un cadre **strictement pédagogique et légal**.
@@ -196,6 +210,7 @@ MobSF procède alors à :
 - la recherche de vulnérabilités
 
 ---
+Temps d’analyse estimé : ~2 minutes
 
 ## Résultats de l’analyse
 
@@ -222,12 +237,19 @@ Les paramètres de sécurité suivants ont été observés :
 android:debuggable="true"
 android:allowBackup="true"
 
+Ces paramètres indiquent que l'application est en mode développement.
 
 ---
 
 ## Composants exportés
 
 ### Activity exportée
+| Activity | Exported |
+|---------|----------|
+SplashActivity | Oui
+ListPizzaActivity | Non
+PizzaDetailActivity | Non
+
 SplashActivity
 
 Cette activité est exportée car elle contient l’intent :
@@ -241,11 +263,24 @@ Capture :
 ---
 
 ### Broadcast Receiver exporté
+
+
+| Receiver | Exported |
+|---------|----------|
+ProfileInstallReceiver | Oui
+
+
 androidx.profileinstaller.ProfileInstallReceiver
 
 Capture :
 
 ![Receiver exporté](images/20_exported_receiver.png)
+### Providers
+
+| Provider | Exported |
+|---------|----------|
+InitializationProvider | Non
+
 
 ---
 
@@ -273,7 +308,41 @@ Capture :
 
 ![Permissions](images/21_permissions_overview.png)
 
+# 9.1 Analyse de la configuration réseau 
+
+### Configuration réseau
+
+- android:usesCleartextTraffic : non défini
+- networkSecurityConfig : absent
+
+### Interprétation
+
+L’absence de `usesCleartextTraffic` indique que l’application n’autorise pas explicitement le trafic HTTP non sécurisé.
+
+Sur Android moderne (API ≥ 28), cela signifie que seul le trafic HTTPS est autorisé par défaut.
+
 ---
+
+### Analyse des endpoints
+
+Résultat MobSF :
+
+- Aucun URL détecté
+- Aucun endpoint
+- Aucun email
+
+Capture :
+
+![URLs](images/NEW_urls_analysis.png)
+
+---
+
+### Conclusion réseau
+
+Aucune communication réseau sensible ou non sécurisée n’a été identifiée.
+
+---
+
 
 # 10. Task 6 — Analyse du code et des ressources
 
@@ -290,7 +359,20 @@ Les sections suivantes n’ont signalé aucun problème :
 - Shared Library Analysis
 - File Analysis
 - Firebase Analysis
+# 10.1 Surface d’attaque 
 
+Les points d’entrée potentiels identifiés sont :
+
+- Activity exportée (SplashActivity)
+- Broadcast Receiver exporté
+- Mode debug activé
+- Sauvegarde des données activée
+
+Capture :
+
+![Attack Surface](images/NEW_attack_surface.png)
+
+---
 ---
 
 # 11. Task 7 — Corrélation avec OWASP MASVS
@@ -313,7 +395,13 @@ MASVS-CODE
 
 Les applications doivent être signées avec un certificat sécurisé.
 
+## Tests MASTG complémentaires
+
+- MASTG-TEST-0011 : Vérification du mode debug
+- MASTG-TEST-0024 : Analyse des composants exportés
+
 ---
+
 
 # 12. Task 8 — Export du rapport MobSF
 
@@ -329,6 +417,13 @@ Le rapport contient :
 - analyse du manifeste
 - analyse du certificat
 - recommandations automatiques
+
+---
+# 12.1 Analyse des faux positifs 
+
+Aucune vulnérabilité critique n’a été identifiée comme faux positif.
+
+Les résultats fournis par MobSF sont cohérents avec la configuration du manifeste.
 
 ---
 
@@ -388,11 +483,19 @@ android:allowBackup="false"
 
 ## 4. Broadcast Receiver exporté
 
-Sévérité : WARNING
-
 Description :
 
-Un receiver est exporté et peut potentiellement être invoqué par d'autres applications.
+Le receiver `ProfileInstallReceiver` est exporté mais protégé par une permission système.
+
+Impact :
+
+- Surface d’attaque limitée
+- Accès restreint mais toujours exposé
+
+---
+
+Sévérité : WARNING
+
 
 Remédiation :
 
@@ -448,3 +551,34 @@ MobSF
 Kali Linux  
 Android SDK  
 OWASP MASVS
+# 19. Annexes 
+
+## Permissions
+
+- com.example.pizzarecipes.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+
+## Composants exportés
+
+- SplashActivity
+- ProfileInstallReceiver
+
+## Endpoints
+
+Aucun endpoint ou URL détecté
+
+Capture :
+
+![Annexes](images/NEW_annexes.png)
+# Fichiers de traçabilité générés
+
+Les fichiers suivants ont été créés pour structurer l’analyse :
+
+- analyse_info.txt
+- permissions.txt
+- composants_exportes.txt
+- config_reseau.txt
+- endpoints.txt
+- vulnerabilites.txt
+- ressources_sensibles.txt
+- correlation_masvs.txt
+- top_vulnerabilites.txt
