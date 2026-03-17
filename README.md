@@ -562,3 +562,5 @@ Les fichiers suivants ont été créés pour structurer l’analyse :
 - ressources_sensibles.txt
 - correlation_masvs.txt
 - top_vulnerabilites.txt
+- staticAnalysis.pdf
+  
