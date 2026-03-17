@@ -1,0 +1,4 @@
+Configuration réseau :
+-------------------
+usesCleartextTraffic : non défini
+networkSecurityConfig : absent

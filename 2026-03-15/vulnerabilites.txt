@@ -1,0 +1,6 @@
+Vulnérabilités critiques :
+------------------------
+- Mode debug activé
+- Certificat debug
+- Sauvegarde des données activée
+- Broadcast Receiver exporté

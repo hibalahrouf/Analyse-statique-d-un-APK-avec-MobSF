@@ -1,0 +1,11 @@
+Corrélation MASVS :
+-----------------
+Vulnérabilité : Mode debug activé
+Référence MASVS : MASVS-RESILIENCE-1
+Preuve : android:debuggable="true"
+Impact : Analyse et exploitation facilitées
+
+Vulnérabilité : Certificat debug
+Référence MASVS : MASVS-CODE-1
+Impact : Signature non sécurisée
+

@@ -1,0 +1,9 @@
+Top vulnérabilités :
+------------------
+1. Mode debug activé
+2. Certificat debug
+3. Sauvegarde activée
+
+Faux positifs potentiels :
+-------------------------
+Aucun faux positif critique identifié

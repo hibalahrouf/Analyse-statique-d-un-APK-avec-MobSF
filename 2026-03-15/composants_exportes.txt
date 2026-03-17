@@ -1,0 +1,4 @@
+Composants exportés :
+-------------------
+SplashActivity
+ProfileInstallReceiver

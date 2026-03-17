@@ -1,0 +1,9 @@
+Date d'analyse : Sun Mar 15 06:41:19 PM EDT 2026
+Analyste : Hiba Lahrouf
+VM : Kali
+APK analysé : app-debug.apk
+8fdf353dea4e2821743ad976ba1a4bc2209a94d5298aa44cb2cc7ffb1c7d1a23  app-debug.apk
+Début d'analyse : Tue Mar 17 10:07:26 AM EDT 2026
+Fin d'analyse : Tue Mar 17 10:07:26 AM EDT 2026
+Score de sécurité : 36/100
+Rapport exporté : MobSF_Report_20260317.pdf
